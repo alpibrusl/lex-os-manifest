@@ -4,7 +4,7 @@ import "std.io" as io
 
 import "std.net" as net
 
-import "std.proc" as proc
+import "std.process" as proc
 
 # Bounded command primitives (design doc §9).
 #
@@ -48,7 +48,7 @@ fn cmd_fetch(url :: Str) -> [net] Result[Str, Str] {
 # Run an allow-listed subprocess and return its stdout. Trust: exec ≥
 # sandboxed. The runtime allow-lists which binaries are spawnable.
 fn cmd_run(program :: Str, args :: List[Str]) -> [proc] Result[Str, Str] {
-  match proc.spawn(program, args) {
+  match proc.run(program, args) {
     Ok(r) => Ok(r.stdout),
     Err(e) => Err(e),
   }
